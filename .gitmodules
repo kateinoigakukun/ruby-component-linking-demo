@@ -1,0 +1,8 @@
+[submodule "ruby"]
+	path = ruby
+	url = https://github.com/kateinoigakukun/ruby
+	branch = katei/wasi-pic
+[submodule "wasm-tools"]
+	path = wasm-tools
+	url = https://github.com/kateinoigakukun/wasm-tools
+	branch = katei/table-base-1
