@@ -19,7 +19,6 @@ build/ruby.make.stamp: build/ruby.configure.stamp
 	#       "LD" is not, so we need to override it via environment variable.
 	env \
 	  LD=$(WASI_SDK_PATH)/bin/clang \
-	  CC="$(CURDIR)/ruby/tool/wasm-clangw $(WASI_SDK_PATH)/bin/clang -fPIC" \
 	  $(MAKE) -C build/ruby
 	touch $@
 
