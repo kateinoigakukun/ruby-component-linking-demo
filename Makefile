@@ -11,7 +11,7 @@ wasm-tools/target/debug/wasm-tools:
 build/ruby.configure.stamp: build/wasi-sdk.stamp
 	mkdir -p build/ruby
 	./ruby/autogen.sh
-	(cd build/ruby && ../../configure-wasm32-wasi-pic)
+	(cd build/ruby && env WASI_SDK_PATH=$(WASI_SDK_PATH) ../../configure-wasm32-wasi-pic)
 	touch $@
 
 build/ruby.make.stamp: build/ruby.configure.stamp
