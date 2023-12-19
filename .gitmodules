@@ -4,5 +4,5 @@
 	branch = katei/wasi-pic
 [submodule "wasm-tools"]
 	path = wasm-tools
-	url = https://github.com/kateinoigakukun/wasm-tools
-	branch = katei/table-base-1
+	url = https://github.com/bytecodealliance/wasm-tools
+	branch = main
