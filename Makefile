@@ -1,6 +1,9 @@
 WASI_SDK_PATH = $(CURDIR)/build/wasi-sdk
 
-build/wasi-sdk.stamp: vendor/wasi-sdk-next-x86_64-linux.tar.gz
+vendor/wasi-sdk-download-x86_64-linux.tar.gz:
+	curl -L -o $@ https://github.com/WebAssembly/wasi-sdk/releases/download/wasi-sdk-21/wasi-sdk-21.0-linux.tar.gz
+
+build/wasi-sdk.stamp: vendor/wasi-sdk-download-x86_64-linux.tar.gz
 	mkdir -p build/wasi-sdk
 	tar -C build/wasi-sdk --strip-components=1 -xf $<
 	touch $@
