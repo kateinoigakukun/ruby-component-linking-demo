@@ -33,15 +33,16 @@ build/ruby.wasm: build/wasi-sdk.stamp wasm-tools/target/debug/wasm-tools build/r
 	  $(WASI_SDK_PATH)/share/wasi-sysroot/lib/wasm32-wasi/libwasi-emulated-mman.so \
 	  $(WASI_SDK_PATH)/share/wasi-sysroot/lib/wasm32-wasi/libwasi-emulated-process-clocks.so \
 	  $(WASI_SDK_PATH)/share/wasi-sysroot/lib/wasm32-wasi/libwasi-emulated-signal.so \
-	  --use-built-in-libdl \
+	  $(WASI_SDK_PATH)/share/wasi-sysroot/lib/wasm32-wasi/libdl.so \
 	  --adapt ./build/wasi_snapshot_preview1.command.wasm \
-	  --dl-openable /usr/local/lib/ruby/site_ruby/3.4.0+0/wasm32-wasi/nokogiri/nokogiri.so=$(RUBY_ROOT)/usr/local/lib/ruby/site_ruby/3.4.0+0/wasm32-wasi/nokogiri/nokogiri.so \
 	  --dl-openable /usr/local/lib/ruby/3.4.0+0/wasm32-wasi/enc/encdb.so=$(RUBY_ROOT)/usr/local/lib/ruby/3.4.0+0/wasm32-wasi/enc/encdb.so \
 	  --dl-openable /usr/local/lib/ruby/3.4.0+0/wasm32-wasi/stringio.so=$(RUBY_ROOT)/usr/local/lib/ruby/3.4.0+0/wasm32-wasi/stringio.so \
 	  --dl-openable /usr/local/lib/ruby/3.4.0+0/wasm32-wasi/monitor.so=$(RUBY_ROOT)/usr/local/lib/ruby/3.4.0+0/wasm32-wasi/monitor.so \
 	  --dl-openable /usr/local/lib/ruby/3.4.0+0/wasm32-wasi/pathname.so=$(RUBY_ROOT)/usr/local/lib/ruby/3.4.0+0/wasm32-wasi/pathname.so \
 	  --dl-openable /usr/local/lib/ruby/3.4.0+0/wasm32-wasi/strscan.so=$(RUBY_ROOT)/usr/local/lib/ruby/3.4.0+0/wasm32-wasi/strscan.so \
 	  -o $@
+	  # --use-built-in-libdl \
+	  # --dl-openable /usr/local/lib/ruby/site_ruby/3.4.0+0/wasm32-wasi/nokogiri/nokogiri.so=$(RUBY_ROOT)/usr/local/lib/ruby/site_ruby/3.4.0+0/wasm32-wasi/nokogiri/nokogiri.so \
 	  # --dl-openable /build/ruby/.ext/wasm32-wasi/stringio.so=./build/ruby/.ext/wasm32-wasi/stringio.so -o $@
 	  # --adapt /home/katei/ghq/github.com/bytecodealliance/wasmtime/target/wasm32-unknown-unknown/debug/wasi_snapshot_preview1.wasm \
 	  # --adapt ./build/wasi_snapshot_preview1.command.wasm \
@@ -49,7 +50,7 @@ build/ruby.wasm: build/wasi-sdk.stamp wasm-tools/target/debug/wasm-tools build/r
 .PHONY: check clean
 
 check: build/ruby.wasm
-	wasmtime run --wasm component-model --dir ./::/ build/ruby.wasm -I build/ruby/.ext/wasm32-wasi -e 'require "stringio.so"; puts StringIO.new'
+	wasmtime run --wasm component-model --dir ./build/ruby-root/usr/::/usr build/ruby.wasm -e 'require "stringio.so"; puts StringIO.new'
 
 clean:
 	rm -rf build

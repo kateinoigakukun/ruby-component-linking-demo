@@ -21,5 +21,5 @@ echo "RUBY_SOURCE_DIR: $RUBY_SOURCE_DIR"
   CFLAGS="-fPIC -fvisibility=default" \
   XLDFLAGS="-Xlinker -shared -Xlinker --export-dynamic -Xlinker --export-all -Xlinker --experimental-pic -Xlinker -export-if-defined=__main_argc_argv" \
   optflags="-O2" \
-  debugflags="" \
-  wasmoptflags="-O2"
+  debugflags="-g3" \
+  wasmoptflags="-O2 --pass-arg=asyncify-relocatable -g"
