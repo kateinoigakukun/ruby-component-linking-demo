@@ -11,7 +11,7 @@ to enable dynamic linking of CRuby extension libraries.
 
 ## Limitations
 
-- [ ] Asyncify unwinding across image boundaries does not work yet.
+- [x] Asyncify unwinding across image boundaries does not work yet.
       Extension libraries should be Asyncified with `--pass-arg=asyncify-relocatable` after linking.
 - [ ] `.so` files must be visible at runtime.
       This is because CRuby checks the existence of `.so` files at runtime before `dlopen`ing them.
